@@ -25,8 +25,6 @@ if [ -f "tmp/pids/puma.pid" ]; then
   rm -f tmp/pids/puma.pid
 fi
 
-cd ${work_dir}
-
 if [ -e "bin/rails" ]; then
   bin/rails db:create
   bin/rails db:migrate
