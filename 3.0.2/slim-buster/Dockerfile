@@ -22,9 +22,12 @@ RUN apt-get -qq update \
                         ca-certificates
 
 # Install Node & Yarn
-RUN apt-get -qq update \
-      && apt-get install -y curl \
+RUN apt-get install -y curl \
+      && apt-get remove -y cmdtest \
       && curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x | bash - \
+      && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+      && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+      && apt-get -qq update \
       && apt-get install -y nodejs yarn
 
 COPY startup.sh /root/startup.sh
